@@ -114,7 +114,7 @@ public class StreamsAPI2 {
 		
 		System.out.println("-------------------------------------------------------------");
 		System.out.println(">> Fibonacci series ");
-		Stream.iterate(new int[] {1, 2}, fib -> new int[] {fib[1], fib[0]+fib[1]}).limit(20).forEach(fib -> System.out.print(fib[0]+" "));
+		Stream.iterate(new int[] {1, 2}, fib -> new int[] {fib[1], fib[0]+fib[1]}).limit(10).forEach(fib -> System.out.print(fib[0]+" "));
 		
 		System.out.println("-------------------------------------------------------------");
 		System.out.println(">> Compounding effect in chess board");
