@@ -13,7 +13,6 @@ Print:
 1. Understand the requirement and acceptance criteria.
 2. Inspect the existing implementation and related tests.
 3. Follow the project's current architecture, naming conventions, and coding patterns.
-4. Identify potential impacts on APIs, databases, security, and other services.
 
 ## Implementation rules
 1. Make the smallest focused change that satisfies the requirement.
@@ -31,6 +30,5 @@ Report:
 - Files changed
 - Tests added or updated
 - Important design decisions
-- Known risks and unresolved questions
 
 Do not commit, push, merge, or deploy.

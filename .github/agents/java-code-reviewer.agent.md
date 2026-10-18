@@ -1,6 +1,6 @@
 ---
 name: Java Code Reviewer Agent
-description: Independently reviews Java changes for correctness, security, maintainability, and regression risk.
+description: Independently reviews Java changes for correctness, security, and maintainability
 user-invocable: false
 ---
 

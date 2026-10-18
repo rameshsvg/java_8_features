@@ -1,6 +1,6 @@
 ---
 name: Java Code Review Standards
-description: Apply when reviewing Java, Spring Boot, API, database, or test changes.
+description: Apply when reviewing Java, Spring Boot, API, or test changes.
 ---
 
 # Java Code Review Instructions
@@ -19,12 +19,8 @@ Print:
 - Functional correctness and edge cases
 - Null handling and exception handling
 - API compatibility and input validation
-- Authentication, authorization, and sensitive data exposure
-- SQL correctness, transaction handling, and data integrity
-- Concurrency, thread safety, and resource leaks
-- Performance and unnecessary database or network calls
 - Logging, observability, and error handling
-- Test coverage and regression risk
+- Test coverage
 - Unrelated changes and maintainability
 
 Only report actionable findings supported by evidence.

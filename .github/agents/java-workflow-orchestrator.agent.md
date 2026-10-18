@@ -34,7 +34,7 @@ Provide the developer with:
 - Known constraints and current Git changes
 - Expected output and tests
 
-Require a summary of changed files, tests, and unresolved risks.
+Require a summary of changed files, and tests
 
 ## Stage 3 — Validate
 
@@ -53,7 +53,7 @@ Provide:
 Do not treat missing results as passing.
 
 If validation fails:
-1. Send the actual failures to Java Developer.
+1. Send the actual failures to Java Developer Agent.
 2. Ask for a focused correction.
 3. Invoke Java Validation again for affected checks.
 4. Limit fix/revalidation cycles to two unless the user authorizes more.
@@ -75,7 +75,7 @@ Provide:
 The reviewer must independently assess the code and must not apply fixes.
 
 If actionable findings exist:
-1. Send the findings to Java Developer.
+1. Send the findings to Java Developer Agent.
 2. Request focused corrections.
 3. Invoke Java Validation for affected checks.
 4. Invoke Java Code Reviewer again to inspect the corrected changes.
@@ -92,8 +92,7 @@ Summarize in below format:
 - Modified file: Files changed
 - Validation result: Validation commands and actual results
 - Code-review findings: Code-review findings and resolution status
-- Issue(if any): Remaining risks and missing evidence
--   Recommended next action
+- Recommended next action
 
 ## Workflow rules
 - Invoke the configured subagents; do not merely recommend that the user select them manually.

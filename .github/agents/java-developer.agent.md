@@ -32,4 +32,3 @@ Return:
 - Files changed
 - Tests added or updated
 - Commands executed and actual results, if any
-- Known risks, unresolved questions, and suggested follow-up checks

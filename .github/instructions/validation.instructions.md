@@ -10,10 +10,9 @@ Print:
 [TRACE][INSTRUCTIONS] INSTRUCTIONS: Java Validator
 
 ## Identify the project
-1. Inspect pom.xml, build.gradle, or build.gradle.kts.
-2. Check for Maven or Gradle wrapper scripts.
-3. Inspect existing test configuration and project documentation.
-4. Prefer the project's wrapper and established commands.
+1. Inspect pom.xml, build.gradle
+2. Inspect existing test configuration and project documentation.
+3. Prefer the project's wrapper and established commands.
 
 ## Validation workflow
 1. Run focused tests related to the changed behavior.
