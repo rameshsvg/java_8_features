@@ -1,6 +1,6 @@
 ---
 name: reviewer
-description: Review modified Java code for bugs, defects, security concerns, and regression risks.
+description: Review modified Java code for bugs, defects
 argument-hint: Specify the file, changes, or area to review.
 agent: agent
 ---
@@ -33,5 +33,4 @@ Review the modified source code or Git diff relevant to the user's request.
 ## Constraints
 
 - Review only; do not modify source files or apply fixes unless explicitly requested.
-- Do not invent issues.
 - Do not claim tests were executed unless they were.

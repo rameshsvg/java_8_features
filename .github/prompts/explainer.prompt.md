@@ -23,7 +23,7 @@ Follow the project's Java conventions and the explanation preferences defined in
 6. Trace the input through the program and show the intermediate values when useful.
 7. Explain the expected output and how it is produced.
 8. When useful, provide an alternative implementation and compare the approaches.
-9. Highlight common mistakes, edge cases, and relevant performance considerations.
+9. Highlight common mistakes, edge cases
 
 ## Required Output Format
 
@@ -64,7 +64,6 @@ Start with:
 When an alternative is provided, compare the original and alternative in terms of:
 - Readability
 - Maintainability
-- Performance, when relevant
 - Appropriate use cases
 
 ## 7. Key Takeaways
