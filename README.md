@@ -1,62 +1,108 @@
-# GitHub Copilot Customization Reference
+# Java Workflow Orchestrator
 
-A quick reference for understanding the purpose of the main GitHub Copilot customization files in this repository.
+This repository tracks and manages the step-by-step process for Java development, validation, and review.
 
-## Quick decision guide
-
-| Question | Use this file | Purpose | Calling / activation mechanism | Short note |
-|---|---|---|---|---|
-| Should Copilot always know this rule? | `.github/copilot-instructions.md` | Defines general project-wide guidance, such as coding conventions, architecture expectations, and shared constraints. | Automatically included for relevant Copilot requests when instruction-file support is enabled and configured. | Keep it concise and broadly applicable. Avoid task-specific workflows here. |
-| Does the rule apply only to a specific task or file type? | `.github/instructions/*.instructions.md` | Adds focused instructions for a task or matching files, such as Java conventions, explanation rules, or review guidance. | Applied when its `applyTo` glob matches the relevant file paths, or discovered as relevant through its description where supported. | `applyTo` matches file paths, not keywords in the prompt. Description-based discovery is best-effort. |
-| Do you want to run a predefined task with `/`? | `.github/prompts/*.prompt.md` | Defines a reusable workflow, such as implementing a feature, reviewing changes, or explaining a Java program. | Explicitly invoked in Chat using its slash command, for example `/developer`, `/reviewer`, or `/explainer`. | Best for repeatable tasks and consistent output formats. |
-| Do you want a dedicated role with particular tools and behavior? | `.github/agents/*.agent.md` | Defines a specialized agent role, instructions, and available tools. | Usually selected from the agent picker in Chat; availability and behavior depend on the selected harness and configuration. | Best when you want to work with a specialist across a conversation or control tool access. |
-
-## Example repository layout
+## Repository Customization Structure
 
 ```text
 .github/
 ├── copilot-instructions.md
 ├── instructions/
-│   └── java-explanator.instructions.md
-├── prompts/
-│   ├── developer.prompt.md
-│   ├── reviewer.prompt.md
-│   └── explainer.prompt.md
+│   ├── code-review.instructions.md
+│   ├── development.instructions.md
+│   └── validation.instructions.md
 └── agents/
-    ├── program-explanation.agent.md
-    └── stream-api-explanation.agent.md
+    ├── java-code-reviewer.agent.md
+    ├── java-developer.agent.md
+    ├── java-validator.agent.md
+    └── java-workflow-orchestrator.agent.md
 ```
 
-## How the files work together
+## Workflow Process Overview
 
-- **Project-wide rules:** `copilot-instructions.md` provides shared guidance.
-- **Focused rules:** `*.instructions.md` adds instructions when relevant.
-- **Task workflows:** `*.prompt.md` tells Copilot how to perform a particular task when invoked.
-- **Specialist roles:** `*.agent.md` configures a role and, where appropriate, its tools.
+```mermaid
+flowchart TD
+    Orchestrator["<div style='min-width:350px; height:20px;'><b>Java Workflow Orchestrator</b><br/><small>Coordinates the full workflow</small>"]
+    Developer["<div style='min-width:350px; height:20px;'><b>Java Developer</b><br/><small>Reads development instructions · Implements changes</small>"]
+    Validation["<div style='min-width:350px; height:20px;'><b>Java Validation</b><br/><small>Reads validation instructions · Runs available checks</small>"]
+    Reviewer["<div style='min-width:350px; height:20px;'><b>Java Code Reviewer</b><br/><small>Reads review instructions · Independently reviews the diff</small>"]
+    Reporter["<div style='min-width:350px; height:20px;'><b>Orchestrator reports results</b><br/><small>Coordinates fixes and revalidation if needed</small>"]
 
-These mechanisms can work together. For example, invoking `/reviewer` can run the review workflow while the project-wide rules and relevant code-review instructions also guide the task.
+    Orchestrator --> Developer
+    Developer --> Validation
+    Validation --> Reviewer
+    Reviewer --> Reporter
 
-## Practical examples
+    %% Custom Styles & Wide Padding
+    classDef orchestratorStyle fill:#fef3c7,stroke:#f59e0b,stroke-width:1px,color:#78350f,padding:10px;
+    classDef developerStyle fill:#f3e8ff,stroke:#a855f7,stroke-width:2px,color:#581c87,padding:10px;
+    classDef validationStyle fill:#e0f2fe,stroke:#0284c7,stroke-width:2px,color:#0369a1,padding:10px;
+    classDef reviewerStyle fill:#ffedd5,stroke:#f97316,stroke-width:2px,color:#9a3412,padding:10px;
+    classDef reporterStyle fill:#dcfce7,stroke:#22c55e,stroke-width:2px,color:#15803d,padding:10px;
 
-| User request | Suggested mechanism |
-|---|---|
-| “Add email validation to the existing service.” | General project rules + relevant instructions; use `/developer` for a repeatable implementation workflow. |
-| “Review the modified Java source without changing it.” | Use `/reviewer` for the repeatable review workflow, alongside applicable rules. |
-| “Explain the logic in `StreamAPI.java`.” | Use `/explainer`, or select a specialized explanation agent if you want that role. |
-| “Always follow existing naming conventions.” | Put the rule in `copilot-instructions.md`. |
-| “For Java files, apply this coding convention.” | Use an instruction file with a suitable `applyTo` pattern such as `**/*.java`. |
+    class Orchestrator orchestratorStyle;
+    class Developer developerStyle;
+    class Validation validationStyle;
+    class Reviewer reviewerStyle;
+    class Reporter reporterStyle;
+```
 
-## Important notes
+## Stage Breakdown Reference
 
-1. `applyTo` is a file-path glob; it is not a prompt-keyword trigger.
-2. Instruction discovery based on descriptions is best-effort and may vary by VS Code version and agent harness.
-3. Prompt files are explicitly invoked; they do not automatically run just because a matching word appears in a prompt.
-4. Agent files define specialized roles; they are not the same as prompt files.
-5. Keep shared rules in one place and reference them where possible instead of duplicating long instructions.
+| Stage | Role | Responsibilities |
+| :----- | :----- | :----- |
+| 1. Orchestrator | Java Workflow Orchestrator | Coordinates the full workflow from start to finish. |
+| 2. Development | Java Developer | Reads development instructions and implements required changes. |
+| 3. Validation | Java Validation | Reads validation instructions and executes available checks. |
+| 4. Code Review | Java Code Reviewer | Reads review instructions and independently reviews the diff. |
+| 5. Reporting | Orchestrator reports results | Coordinates fixes and revalidation if needed. |
 
-## Quick memory aid
+## Workflow Architecture Diagram
 
-- **Always know this rule?** → `copilot-instructions.md`
-- **Rule for certain files or tasks?** → `*.instructions.md`
-- **Run a saved workflow with `/`?** → `*.prompt.md`
-- **Use a specialized role/toolset?** → `*.agent.md`
+```mermaid
+flowchart TD
+    Start([Start Workflow]) --> Orchestrator[Java Workflow Orchestrator<br/><i>Coordinates all stages</i>]
+    
+    Orchestrator --> Developer[Java Developer<br><i>Implements / fixes code</i>]
+    
+    Developer --> Validation[Java Validation<br/><i>Runs available checks</i>]
+    
+    Validation --> ValDecision{Validation<br/>passed?}
+    
+    ValDecision -- No --> Developer
+    ValDecision -- Yes --> Reviewer[Java Code Reviewer<br><i>Independently reviews diff</i>]
+    
+    Reviewer --> RevDecision{Review<br/>approved?}
+    
+    RevDecision -- No --> Developer
+    RevDecision -- Yes --> Finalize[Orchestrator Finalizes<br><i>Aggregates final results</i>]
+    
+    Finalize --> End([Workflow Complete])
+
+    %% Styling
+    style Start fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#0f172a
+    style End fill:#f0fdf4,stroke:#22c55e,stroke-width:2px,color:#0f172a
+    style Orchestrator fill:#fef3c7,stroke:#f59e0b,stroke-width:2px,color:#0f172a
+    style Finalize fill:#fef3c7,stroke:#f59e0b,stroke-width:2px,color:#0f172a
+    style Developer fill:#f3e8ff,stroke:#a855f7,stroke-width:2px,color:#0f172a
+    style Validation fill:#f3e8ff,stroke:#a855f7,stroke-width:2px,color:#0f172a
+    style Reviewer fill:#f3e8ff,stroke:#a855f7,stroke-width:2px,color:#0f172a
+    style ValDecision fill:#ffedd5,stroke:#f97316,stroke-width:2px,color:#0f172a
+    style RevDecision fill:#ffedd5,stroke:#f97316,stroke-width:2px,color:#0f172a
+
+    %% Link styles for clean loopbacks
+    linkStyle 2 stroke:#ef4444,stroke-width:2px,stroke-dasharray: 4 4;
+    linkStyle 5 stroke:#ef4444,stroke-width:2px,stroke-dasharray: 4 4;
+```
+
+## Detailed Workflow Descriptions
+
+1. **Java Workflow Orchestrator**: Manages state, assigns tasks, and coordinates overall workflow progress.
+2. **Java Developer**: Implements software fixes, adds features, or addresses review/validation feedback.
+3. **Java Validation**: Runs automated tests, linter checks, and static analysis tools.
+   - If tests **fail**, control routes back to the **Developer**.
+   - If tests **pass**, code proceeds to **Code Review**.
+4. **Java Code Reviewer**: Performs an independent manual/diff code review.
+   - If changes are **rejected**, control routes back to the **Developer**.
+   - If changes are **approved**, execution completes.
+5. **Finalize**: The Orchestrator aggregates final statuses, posts feedback, and closes the workflow.
